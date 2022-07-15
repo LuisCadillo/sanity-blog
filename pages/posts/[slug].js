@@ -59,14 +59,12 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              {/*
               <PostHeader
                 title={post.title}
-                coverImage={post.coverImage}
+                // coverImage={post.coverImage}
                 date={post.date}
-                author={post.author}
+                // author={post.author}
               />
-              */}
               <PostBody content={post.content} />
             </article>
             <SectionSeparator />
@@ -79,10 +77,13 @@ export default function Post({ data = {}, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const { post, morePosts } = await getClient(preview).fetch(postQuery, {
     slug: params.slug,
   });
-
+  console.log("getStaticProps [slug]");
+  console.log("is this getting executed after webhook?", post, morePosts);
   return {
     props: {
       preview,
@@ -96,6 +97,8 @@ export async function getStaticProps({ params, preview = false }) {
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery);
+  console.log("getStaticPaths [slug]");
+  console.log("is this getting executed after webhook?", paths);
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,

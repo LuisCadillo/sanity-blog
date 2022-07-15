@@ -51,30 +51,6 @@ export default createSchema({
           title: "Date",
           type: "datetime",
         },
-        {
-          name: "author",
-          title: "Author",
-          type: "reference",
-          to: [{ type: "author" }],
-        },
-      ],
-    },
-
-    {
-      name: "author",
-      type: "document",
-      title: "Author",
-      fields: [
-        {
-          name: "name",
-          title: "Name",
-          type: "string",
-        },
-        {
-          name: "picture",
-          title: "Picture",
-          type: "image",
-        },
       ],
     },
   ]),
